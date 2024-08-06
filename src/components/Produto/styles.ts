@@ -1,6 +1,19 @@
 import styled from 'styled-components'
-
 import { cores } from '../../styles'
+
+export const Produtos = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 24px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`
 
 export const Produto = styled.div``
 
@@ -20,7 +33,7 @@ export const Capa = styled.div`
 
 export const Prices = styled.div`
   margin: 16px 0;
-  color: #fff;
+  color: ${cores.corTexto};
 
   small {
     font-size: 16px;
@@ -44,22 +57,7 @@ export const Tag = styled.span`
   font-weight: 700;
   color: #fff;
 `
-export const Plataformas = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  margin: 8px 0 0;
 
-  li {
-    background-color: ${cores.corPrincipal};
-    padding: 8px;
-    font-size: 10px;
-    white-space: nowrap;
-    margin-right: 8px;
-    margin-bottom: 8px;
-    color: #fff;
-    font-weight: bold;
-  }
-`
 export const BtnComprar = styled.button`
   display: block;
   width: 100%;

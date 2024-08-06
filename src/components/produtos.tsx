@@ -1,11 +1,19 @@
 import React from 'react'
-import { Produto } from '../types'
+import {
+  Produto,
+  Titulo,
+  Capa,
+  Prices,
+  Tag,
+  BtnComprar
+} from '../components/Produto/styles'
+import { Produto as ProdutoType } from '../types'
 
 interface ProdutosProps {
-  produtos: Produto[]
-  favoritos: Produto[]
-  favoritar: (produto: Produto) => void
-  adicionarAoCarrinho: (produto: Produto) => void
+  produtos: ProdutoType[]
+  favoritos: ProdutoType[]
+  favoritar: (produto: ProdutoType) => void
+  adicionarAoCarrinho: (produto: ProdutoType) => void
 }
 
 const Produtos: React.FC<ProdutosProps> = ({
@@ -18,19 +26,24 @@ const Produtos: React.FC<ProdutosProps> = ({
     <div>
       <h1>Produtos</h1>
       {produtos.map((produto) => (
-        <div key={produto.id}>
-          <h2>{produto.nome}</h2>
-          <p>Preço: {produto.preco}</p>
-          <img src={produto.imagem} alt={produto.nome} />
-          <button onClick={() => adicionarAoCarrinho(produto)}>
+        <Produto key={produto.id}>
+          <Capa>
+            <img src={produto.imagem} alt={produto.nome} />
+            {favoritos.some((f) => f.id === produto.id) && <Tag>Favorito</Tag>}
+          </Capa>
+          <Titulo>{produto.nome}</Titulo>
+          <Prices>
+            <strong>{produto.preco}</strong>
+          </Prices>
+          <BtnComprar onClick={() => adicionarAoCarrinho(produto)}>
             Adicionar ao Carrinho
-          </button>
+          </BtnComprar>
           <button onClick={() => favoritar(produto)}>
             {favoritos.some((f) => f.id === produto.id)
               ? 'Desfavoritar'
               : 'Favoritar'}
           </button>
-        </div>
+        </Produto>
       ))}
     </div>
   )

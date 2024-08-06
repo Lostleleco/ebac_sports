@@ -1,6 +1,5 @@
-// cartSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
+import * as S from './/styles'
 interface CartState {
   items: Array<{ id: number; quantity: number }>
 }

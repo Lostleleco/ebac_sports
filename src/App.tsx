@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { GlobalStyle } from './styles'
 import Header from './components/Header'
 import Produtos from './components/produtos'
+
 import { Produto } from '../src/types'
 
 function App() {

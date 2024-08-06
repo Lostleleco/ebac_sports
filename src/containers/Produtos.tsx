@@ -1,30 +1,53 @@
 import React from 'react'
+import {
+  Produtos as ProdutosContainer,
+  Produto,
+  Titulo,
+  Capa,
+  Prices,
+  Tag,
+  BtnComprar
+} from './styles'
 import { Produto as ProdutoType } from '../types'
 
-type Props = {
-  produto: ProdutoType
-  aoComprar: (produto: ProdutoType) => void
+interface ProdutosProps {
+  produtos: ProdutoType[]
+  favoritos: ProdutoType[]
   favoritar: (produto: ProdutoType) => void
-  estaNosFavoritos: boolean
+  adicionarAoCarrinho: (produto: ProdutoType) => void
 }
 
-const Produto = ({
-  produto,
-  aoComprar,
+const Produtos: React.FC<ProdutosProps> = ({
+  produtos,
+  favoritos,
   favoritar,
-  estaNosFavoritos
-}: Props) => {
+  adicionarAoCarrinho
+}) => {
   return (
-    <div>
-      <h2>{produto.nome}</h2>
-      <p>Preço: {produto.preco}</p>
-      <img src={produto.imagem} alt={produto.nome} />
-      <button onClick={() => aoComprar(produto)}>Adicionar ao Carrinho</button>
-      <button onClick={() => favoritar(produto)}>
-        {estaNosFavoritos ? 'Desfavoritar' : 'Favoritar'}
-      </button>
-    </div>
+    <ProdutosContainer>
+      {produtos.map((produto) => (
+        <Produto key={produto.id}>
+          <Capa>
+            <img src={produto.imagem} alt={produto.nome} />
+            {favoritos.some((f) => f.id === produto.id) && <Tag>Favorito</Tag>}
+          </Capa>
+          <Titulo>{produto.nome}</Titulo>
+          <Prices>
+            <strong>{produto.preco}</strong>
+            {/* Adicione um preço antigo aqui, se necessário */}
+          </Prices>
+          <BtnComprar onClick={() => adicionarAoCarrinho(produto)}>
+            Adicionar ao Carrinho
+          </BtnComprar>
+          <button onClick={() => favoritar(produto)}>
+            {favoritos.some((f) => f.id === produto.id)
+              ? 'Desfavoritar'
+              : 'Favoritar'}
+          </button>
+        </Produto>
+      ))}
+    </ProdutosContainer>
   )
 }
 
-export default Produto
+export default Produtos
