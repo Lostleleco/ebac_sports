@@ -1,43 +1,30 @@
-import { Produto as ProdutoType } from '../App'
-import Produto from '../components/Produto'
-
-import * as S from './styles'
+import React from 'react'
+import { Produto as ProdutoType } from '../types'
 
 type Props = {
-  produtos: ProdutoType[]
-  favoritos: ProdutoType[]
-  adicionarAoCarrinho: (produto: ProdutoType) => void
+  produto: ProdutoType
+  aoComprar: (produto: ProdutoType) => void
   favoritar: (produto: ProdutoType) => void
+  estaNosFavoritos: boolean
 }
 
-const ProdutosComponent = ({
-  produtos,
-  favoritos,
-  adicionarAoCarrinho,
-  favoritar
+const Produto = ({
+  produto,
+  aoComprar,
+  favoritar,
+  estaNosFavoritos
 }: Props) => {
-  const produtoEstaNosFavoritos = (produto: ProdutoType) => {
-    const produtoId = produto.id
-    const IdsDosFavoritos = favoritos.map((f) => f.id)
-
-    return IdsDosFavoritos.includes(produtoId)
-  }
-
   return (
-    <>
-      <S.Produtos>
-        {produtos.map((produto) => (
-          <Produto
-            estaNosFavoritos={produtoEstaNosFavoritos(produto)}
-            key={produto.id}
-            produto={produto}
-            favoritar={favoritar}
-            aoComprar={adicionarAoCarrinho}
-          />
-        ))}
-      </S.Produtos>
-    </>
+    <div>
+      <h2>{produto.nome}</h2>
+      <p>Preço: {produto.preco}</p>
+      <img src={produto.imagem} alt={produto.nome} />
+      <button onClick={() => aoComprar(produto)}>Adicionar ao Carrinho</button>
+      <button onClick={() => favoritar(produto)}>
+        {estaNosFavoritos ? 'Desfavoritar' : 'Favoritar'}
+      </button>
+    </div>
   )
 }
 
-export default ProdutosComponent
+export default Produto

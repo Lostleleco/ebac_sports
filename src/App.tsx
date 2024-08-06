@@ -1,15 +1,8 @@
-import { useEffect, useState } from 'react'
-import Header from './components/Header'
-import Produtos from './containers/Produtos'
-
+import React, { useEffect, useState } from 'react'
 import { GlobalStyle } from './styles'
-
-export type Produto = {
-  id: number
-  nome: string
-  preco: number
-  imagem: string
-}
+import Header from './components/Header'
+import Produtos from './components/produtos'
+import { Produto } from '../src/types'
 
 function App() {
   const [produtos, setProdutos] = useState<Produto[]>([])
@@ -22,7 +15,7 @@ function App() {
       .then((res) => setProdutos(res))
   }, [])
 
-  function adicionarAoCarrinho(produto: Produto) {
+  const adicionarAoCarrinho = (produto: Produto) => {
     if (carrinho.find((p) => p.id === produto.id)) {
       alert('Item já adicionado')
     } else {
@@ -30,7 +23,7 @@ function App() {
     }
   }
 
-  function favoritar(produto: Produto) {
+  const favoritar = (produto: Produto) => {
     if (favoritos.find((p) => p.id === produto.id)) {
       const favoritosSemProduto = favoritos.filter((p) => p.id !== produto.id)
       setFavoritos(favoritosSemProduto)
