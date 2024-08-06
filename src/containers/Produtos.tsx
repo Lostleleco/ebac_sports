@@ -1,53 +1,42 @@
-import React from 'react'
-import {
-  Produtos as ProdutosContainer,
-  Produto,
-  Titulo,
-  Capa,
-  Prices,
-  Tag,
-  BtnComprar
-} from './styles'
-import { Produto as ProdutoType } from '../types'
+import { Produto as ProdutoType } from '../App'
+import Produto from '../components/Produto'
+import * as S from './styles'
 
-interface ProdutosProps {
+type Props = {
   produtos: ProdutoType[]
   favoritos: ProdutoType[]
-  favoritar: (produto: ProdutoType) => void
   adicionarAoCarrinho: (produto: ProdutoType) => void
+  favoritar: (produto: ProdutoType) => void
 }
 
-const Produtos: React.FC<ProdutosProps> = ({
+const ProdutosComponent = ({
   produtos,
   favoritos,
-  favoritar,
-  adicionarAoCarrinho
-}) => {
+  adicionarAoCarrinho,
+  favoritar
+}: Props) => {
+  const produtoEstaNosFavoritos = (produto: ProdutoType) => {
+    const produtoId = produto.id
+    const IdsDosFavoritos = favoritos.map((f) => f.id)
+
+    return IdsDosFavoritos.includes(produtoId)
+  }
+
   return (
-    <ProdutosContainer>
-      {produtos.map((produto) => (
-        <Produto key={produto.id}>
-          <Capa>
-            <img src={produto.imagem} alt={produto.nome} />
-            {favoritos.some((f) => f.id === produto.id) && <Tag>Favorito</Tag>}
-          </Capa>
-          <Titulo>{produto.nome}</Titulo>
-          <Prices>
-            <strong>{produto.preco}</strong>
-            {/* Adicione um preço antigo aqui, se necessário */}
-          </Prices>
-          <BtnComprar onClick={() => adicionarAoCarrinho(produto)}>
-            Adicionar ao Carrinho
-          </BtnComprar>
-          <button onClick={() => favoritar(produto)}>
-            {favoritos.some((f) => f.id === produto.id)
-              ? 'Desfavoritar'
-              : 'Favoritar'}
-          </button>
-        </Produto>
-      ))}
-    </ProdutosContainer>
+    <>
+      <S.Produtos>
+        {produtos.map((produto) => (
+          <Produto
+            estaNosFavoritos={produtoEstaNosFavoritos(produto)}
+            key={produto.id}
+            produto={produto}
+            favoritar={favoritar}
+            aoComprar={adicionarAoCarrinho}
+          />
+        ))}
+      </S.Produtos>
+    </>
   )
 }
 
-export default Produtos
+export default ProdutosComponent
