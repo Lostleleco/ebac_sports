@@ -1,4 +1,3 @@
-// src/store/index.ts
 import { configureStore } from '@reduxjs/toolkit'
 import produtosApi from './produtosApi'
 import carrinhoSlice from './carrinhoSlice'

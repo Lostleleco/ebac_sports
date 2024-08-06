@@ -1,4 +1,5 @@
-import { Produto as ProdutoType } from '../App'
+import React from 'react'
+import { Produtos as ProdutoType } from '../App'
 import Produto from '../components/Produto'
 import * as S from './styles'
 
