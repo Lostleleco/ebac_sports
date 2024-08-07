@@ -4,7 +4,7 @@ import { Produto } from '../../../types/types'
 import cesta from '../../assets/cesta.png'
 import { paraReal } from '../Produto'
 import { useSelector } from 'react-redux'
-import { RootState } from '../../../store/store'
+import { RootState } from '../../store/store'
 
 type Props = {
   favoritos: Produto[]

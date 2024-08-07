@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Provider } from 'react-redux'
-import store from '../store'
-import { useGetProdutosQuery } from '../store/produtosApi'
+import store from '../src/store/store'
+import { useGetProdutosQuery } from '../src/store/produtosApi'
 
 function App() {
   const { data: produtos, error, isLoading } = useGetProdutosQuery()

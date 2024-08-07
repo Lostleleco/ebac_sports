@@ -5,7 +5,7 @@ import {
   removeProduct,
   selectProducts
 } from '../../store/carrinhoSlice'
-import { RootState } from '../../store/store'
+import { RootState } from '../store/store'
 
 interface Product {
   id: number

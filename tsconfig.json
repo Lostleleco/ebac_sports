@@ -17,7 +17,7 @@
     "resolveJsonModule": true,
     "typeRoots": ["./node_modules/@types", "./src/types"]
   },
-  "include": ["src"],
+  "include": ["src", "store/store.tsx"],
   "exclude": ["node_modules", "build"]
 }
 
