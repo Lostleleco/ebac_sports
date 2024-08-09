@@ -4,6 +4,9 @@ import Produtos from './containers/Produtos'
 
 import { GlobalStyle } from './styles'
 
+import store from './store'
+import { Provider } from 'react-redux'
+
 export type Produto = {
   id: number
   nome: string
@@ -13,7 +16,7 @@ export type Produto = {
 
 function App() {
   const [produtos, setProdutos] = useState<Produto[]>([])
-  const [carrinho, setCarrinho] = useState<Produto[]>([])
+
   const [favoritos, setFavoritos] = useState<Produto[]>([])
 
   useEffect(() => {
@@ -21,14 +24,6 @@ function App() {
       .then((res) => res.json())
       .then((res) => setProdutos(res))
   }, [])
-
-  function adicionarAoCarrinho(produto: Produto) {
-    if (carrinho.find((p) => p.id === produto.id)) {
-      alert('Item já adicionado')
-    } else {
-      setCarrinho([...carrinho, produto])
-    }
-  }
 
   function favoritar(produto: Produto) {
     if (favoritos.find((p) => p.id === produto.id)) {
@@ -39,11 +34,17 @@ function App() {
     }
   }
 
+  function adicionarAoCarrinho(produto: Produto) {
+    // Implemente aqui a lógica para adicionar o produto ao carrinho
+    console.log('Produto adicionado ao carrinho:', produto)
+    // Aqui você pode despachar uma ação para o Redux ou atualizar um estado local
+  }
+
   return (
-    <>
+    <Provider store={store}>
       <GlobalStyle />
       <div className="container">
-        <Header favoritos={favoritos} itensNoCarrinho={carrinho} />
+        <Header />
         <Produtos
           produtos={produtos}
           favoritos={favoritos}
@@ -51,7 +52,7 @@ function App() {
           adicionarAoCarrinho={adicionarAoCarrinho}
         />
       </div>
-    </>
+    </Provider>
   )
 }
 
