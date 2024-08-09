@@ -1,20 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState } from '../store/store'
 
 interface Product {
   id: number
   name: string
   price: number
+  itens: []
 }
 
 interface CartState {
-  itens: Product[]
+  itens: any
   products: Product[]
 }
 
 const initialState: CartState = {
   products: [],
-  itens: []
+  itens: undefined
 }
 
 const carrinhoSlice = createSlice({
@@ -33,7 +33,4 @@ const carrinhoSlice = createSlice({
 })
 
 export const { addProduct, removeProduct } = carrinhoSlice.actions
-
-export const selectProducts = (state: RootState) => state.carrinho.products
-
 export default carrinhoSlice.reducer
