@@ -35,9 +35,7 @@ function App() {
   }
 
   function adicionarAoCarrinho(produto: Produto) {
-    // Implemente aqui a lógica para adicionar o produto ao carrinho
     console.log('Produto adicionado ao carrinho:', produto)
-    // Aqui você pode despachar uma ação para o Redux ou atualizar um estado local
   }
 
   return (
