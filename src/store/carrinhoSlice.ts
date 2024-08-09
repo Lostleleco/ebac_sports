@@ -8,14 +8,13 @@ interface Product {
 }
 
 interface CartState {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  itens: any
+  itens: Product[]
   products: Product[]
 }
 
 const initialState: CartState = {
   products: [],
-  itens: undefined
+  itens: []
 }
 
 const carrinhoSlice = createSlice({

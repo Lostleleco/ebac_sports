@@ -1,16 +1,20 @@
 import React, { useEffect } from 'react'
 import { Provider } from 'react-redux'
 import store from '../src/store/store'
-import { useGetProdutosQuery } from '../src/store/produtosApi'
 
+import { useGetProdutosQuery } from '../src/store/produtosApi'
+export type Produto = {
+  id: number
+  nome: string
+  preco: number
+  imagem: string
+}
 function App() {
-  const { data: produtos, error, isLoading } = useGetProdutosQuery()
+  const { data: produtos } = useGetProdutosQuery('esportes')
 
   useEffect(() => {
     if (produtos) {
-      produtos.forEach((produto: (arg0: any) => any) =>
-        store.dispatch(produto(produto))
-      )
+      produtos.forEach((produto) => store.dispatch(produto(produto)))
     }
   }, [produtos])
 

@@ -1,3 +1,4 @@
+import React from 'react'
 import { Produto as ProdutoType } from '../../App'
 import * as S from './styles'
 
@@ -8,10 +9,9 @@ type Props = {
   estaNosFavoritos: boolean
 }
 
-export const paraReal = (valor: number) =>
-  new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(
-    valor
-  )
+export const paraReal = (valor: number) => {
+  return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+}
 
 const ProdutoComponent = ({
   produto,

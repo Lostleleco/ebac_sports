@@ -1,43 +1,19 @@
 import React from 'react'
-import { Produtos as ProdutoType } from '../App'
-import Produto from '../components/Produto'
+import { Produto } from '../App'
 import * as S from './styles'
 
 type Props = {
-  produtos: ProdutoType[]
-  favoritos: ProdutoType[]
-  adicionarAoCarrinho: (produto: ProdutoType) => void
-  favoritar: (produto: ProdutoType) => void
+  produto: Produto
 }
 
-const ProdutosComponent = ({
-  produtos,
-  favoritos,
-  adicionarAoCarrinho,
-  favoritar
-}: Props) => {
-  const produtoEstaNosFavoritos = (produto: ProdutoType) => {
-    const produtoId = produto.id
-    const IdsDosFavoritos = favoritos.map((f) => f.id)
-
-    return IdsDosFavoritos.includes(produtoId)
-  }
-
+const ProdutoComponent: React.FC<Props> = ({ produto }) => {
   return (
-    <>
-      <S.Produtos>
-        {produtos.map((produto) => (
-          <Produto
-            estaNosFavoritos={produtoEstaNosFavoritos(produto)}
-            key={produto.id}
-            produto={produto}
-            favoritar={favoritar}
-            aoComprar={adicionarAoCarrinho}
-          />
-        ))}
-      </S.Produtos>
-    </>
+    <S.Card>
+      <h2>{produto.nome}</h2>
+      <p>Preço: {produto.preco}</p>
+      <img src={produto.imagem} alt={produto.nome} />
+    </S.Card>
   )
 }
 
-export default ProdutosComponent
+export default ProdutoComponent
