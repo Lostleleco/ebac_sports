@@ -1,43 +1,32 @@
 import React from 'react'
-import { Produto as ProdutoType } from '../../App'
-import * as S from './styles'
+import ProdutoComponent from '../../containers/Produtos'
+import { Produto } from '../../App'
 
 type Props = {
-  produto: ProdutoType
-  aoComprar: (produto: ProdutoType) => void
-  favoritar: (produto: ProdutoType) => void
-  estaNosFavoritos: boolean
+  produtos: Produto[]
+  favoritos: Produto[]
+  favoritar: (produto: Produto) => void
+  adicionarAoCarrinho: (produto: Produto) => void
 }
 
-export const paraReal = (valor: number) => {
-  return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-}
-
-const ProdutoComponent = ({
-  produto,
-  aoComprar,
+const Produtos: React.FC<Props> = ({
+  produtos,
+  favoritos,
   favoritar,
-  estaNosFavoritos
-}: Props) => {
+  adicionarAoCarrinho
+}) => {
   return (
-    <S.Produto>
-      <S.Capa>
-        <img src={produto.imagem} alt={produto.nome} />
-      </S.Capa>
-      <S.Titulo>{produto.nome}</S.Titulo>
-      <S.Prices>
-        <strong>{paraReal(produto.preco)}</strong>
-      </S.Prices>
-      <S.BtnComprar onClick={() => favoritar(produto)} type="button">
-        {estaNosFavoritos
-          ? '- Remover dos favoritos'
-          : '+ Adicionar aos favoritos'}
-      </S.BtnComprar>
-      <S.BtnComprar onClick={() => aoComprar(produto)} type="button">
-        Adicionar ao carrinho
-      </S.BtnComprar>
-    </S.Produto>
+    <div>
+      {produtos.map((produto) => (
+        <ProdutoComponent
+          key={produto.id}
+          Produto={produto}
+          favoritar={favoritar}
+          adicionarAoCarrinho={adicionarAoCarrinho}
+        />
+      ))}
+    </div>
   )
 }
 
-export default ProdutoComponent
+export default Produtos

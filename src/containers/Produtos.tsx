@@ -1,19 +1,32 @@
 import React from 'react'
+import ProdutoComponent from '../components/Produto/index'
 import { Produto } from '../App'
-import * as S from './styles'
 
 type Props = {
-  produto: Produto
+  produtos: Produto[]
+  favoritos: Produto[]
+  favoritar: (produto: Produto) => void
+  adicionarAoCarrinho: (produto: Produto) => void
 }
 
-const ProdutoComponent: React.FC<Props> = ({ produto }) => {
+const Produtos: React.FC<Props> = ({
+  produtos,
+  favoritos,
+  favoritar,
+  adicionarAoCarrinho
+}) => {
   return (
-    <S.Card>
-      <h2>{produto.nome}</h2>
-      <p>Preço: {produto.preco}</p>
-      <img src={produto.imagem} alt={produto.nome} />
-    </S.Card>
+    <div>
+      {produtos.map((produto) => (
+        <ProdutoComponent
+          key={produto.id}
+          produto={produto}
+          favoritar={favoritar}
+          adicionarAoCarrinho={adicionarAoCarrinho}
+        />
+      ))}
+    </div>
   )
 }
 
-export default ProdutoComponent
+export default Produtos
