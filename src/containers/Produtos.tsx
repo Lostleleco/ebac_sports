@@ -8,10 +8,8 @@ type Props = {
   favoritar: (produto: Produto) => void
   adicionarAoCarrinho: (produto: Produto) => void
 }
-
 const Produtos: React.FC<Props> = ({
   produtos,
-  favoritos,
   favoritar,
   adicionarAoCarrinho
 }) => {
@@ -21,8 +19,9 @@ const Produtos: React.FC<Props> = ({
         <ProdutoComponent
           key={produto.id}
           produto={produto}
+          aoComprar={adicionarAoCarrinho}
           favoritar={favoritar}
-          adicionarAoCarrinho={adicionarAoCarrinho}
+          estaNosFavoritos
         />
       ))}
     </div>
