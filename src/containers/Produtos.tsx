@@ -14,7 +14,7 @@ const Produtos: React.FC<Props> = ({
   adicionarAoCarrinho
 }) => {
   return (
-    <div>
+    <div className="card">
       {produtos.map((produto) => (
         <ProdutoComponent
           key={produto.id}
