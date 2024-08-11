@@ -1,31 +1,40 @@
-import React from 'react'
-import ProdutoComponent from '../components/Produto/index'
-import { Produto } from '../App'
+import { Produto as ProdutoType } from '../App'
+import Produto from '../components/Produto'
+import { useGetProdutoQuery } from '../services/api'
+
+import * as S from './styles'
 
 type Props = {
-  produtos: Produto[]
-  favoritos: Produto[]
-  favoritar: (produto: Produto) => void
-  adicionarAoCarrinho: (produto: Produto) => void
+  favoritos: ProdutoType[]
+  favoritar: (produto: ProdutoType) => void
 }
-const Produtos: React.FC<Props> = ({
-  produtos,
-  favoritar,
-  adicionarAoCarrinho
-}) => {
+
+const ProdutosComponent = ({ favoritos, favoritar }: Props) => {
+  const { data: produtos, isLoading } = useGetProdutoQuery()
+
+  if (isLoading) return <h2>Carregando...</h2>
+
+  const produtoEstaNosFavoritos = (produto: ProdutoType) => {
+    const produtoId = produto.id
+    const IdsDosFavoritos = favoritos.map((f) => f.id)
+
+    return IdsDosFavoritos.includes(produtoId)
+  }
+
   return (
-    <div className="card">
-      {produtos.map((produto) => (
-        <ProdutoComponent
-          key={produto.id}
-          produto={produto}
-          aoComprar={adicionarAoCarrinho}
-          favoritar={favoritar}
-          estaNosFavoritos
-        />
-      ))}
-    </div>
+    <>
+      <S.Produtos>
+        {produtos?.map((produto) => (
+          <Produto
+            estaNosFavoritos={produtoEstaNosFavoritos(produto)}
+            key={produto.id}
+            produto={produto}
+            favoritar={favoritar}
+          />
+        ))}
+      </S.Produtos>
+    </>
   )
 }
 
-export default Produtos
+export default ProdutosComponent
