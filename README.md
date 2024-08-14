@@ -1,3 +1,11 @@
+![image](https://github.com/user-attachments/assets/baabe9d9-ffc6-4b1f-8f7f-c7a04f53899c)
+
+
+
+#Link do projeto na Vercel: https://ebac-sports-psi.vercel.app/
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
